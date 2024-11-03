@@ -1,0 +1,42 @@
+- hosts: localhost
+  gather_facts: no
+
+  vars_files:
+    - variables.yaml
+
+  tasks:
+    - name: Create Working directory
+      file: 
+        path: "{{ working_directory }}"
+        state: directory
+        mode: 0755
+  
+    - name: Checkout code
+      git:
+        repo: https://github.com/andonyan/devops-programme.git
+        dest: "{{ working_directory }}"
+        version: "{{ branch_name }}"
+        force: yes
+
+    - name: Login to Docker Hub
+      docker_login:
+        username: '{{ lookup("env", "docker_user") }}'
+        password: '{{ lookup("env", "docker_password") }}'
+
+    - name: Build Docker Image & Push to Docker Hub
+      docker_image:
+        build:
+          path: "{{ working_directory }}"
+        name: "{{ image_name }}"
+        tag: "{{ image_tag }}"
+        source: build
+        push: yes
+    
+    - name: Run App Container
+      docker_container:
+        name: "{{ container_name }}"
+        image: "{{ image_name }}:{{ image_tag }}"
+        env:
+          PORT: "{{ listen_port | int }}"
+        ports: 
+          - "{{ expose_port }}:{{ listen_port }}"
