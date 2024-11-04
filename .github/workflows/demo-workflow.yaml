@@ -28,3 +28,10 @@ jobs:
     needs: Demo-Lint-Job
     steps:
       - run: echo "Unit Tests"
+
+  Demo-Display-Secret:
+    runs-on: ubuntu-latest
+    env:
+      secret-password: ${{ secrets.SECRET_PASSWORD }}
+    steps:
+      - run: echo "$secret-password"
