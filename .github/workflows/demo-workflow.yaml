@@ -34,4 +34,4 @@ jobs:
     env:
       secret-password: ${{ secrets.SECRET_PASSWORD }}
     steps:
-      - run: echo "$secret-password"
+      - run: echo $SECRET-PASSWORD
