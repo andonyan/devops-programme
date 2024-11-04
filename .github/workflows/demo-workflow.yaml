@@ -32,6 +32,6 @@ jobs:
   Demo-Display-Secret:
     runs-on: ubuntu-latest
     env:
-      secret-password: ${{ secrets.SECRET_PASSWORD }}
+      secret_password: ${{ secrets.SECRET_PASSWORD }}
     steps:
-      - run: echo $SECRET-PASSWORD
+      - run: echo $secret_password
