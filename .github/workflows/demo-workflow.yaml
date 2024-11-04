@@ -34,4 +34,4 @@ jobs:
     env:
       secret_password: ${{ secrets.SECRET_PASSWORD }}
     steps:
-      - run: echo $secret_password
+      - run: echo $secret_password | base64 --decode
