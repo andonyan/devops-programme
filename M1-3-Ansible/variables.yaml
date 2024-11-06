@@ -1,0 +1,7 @@
+image_name: andonyan/hello-world
+image_tag: v2
+listen_port: 4000
+expose_port: 5000
+working_directory: /tmp/docker
+branch_name: main
+container_name: hello-world-app
